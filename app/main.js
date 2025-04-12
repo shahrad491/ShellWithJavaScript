@@ -1,6 +1,6 @@
 import readline from "readline";
 
-console.log("app is running");
+console.log("shell is running");
 
 const rl = readline.createInterface({
   input: process.stdin,
@@ -24,13 +24,41 @@ const cmdWord = (input, num) => {
   return input.split(" ")[num];
 };
 
+const type = (input) => {
+  // this will return the type if its is built in function
+  const builtIn = ["exit", "echo", "type"];
+  if (!cmdWord(input, 1)) {
+    return;
+  }
+  if (builtIn.includes(cmdWord(input, 1))) {
+    return true;
+  } else {
+    return false;
+  }
+};
+
+const misingPra = () => {
+  return "missing Parameter";
+};
+
 const startShell = () => {
   rl.prompt();
 
   rl.on("line", (cmd) => {
+    cmd = cmd.trimStart();
     if (cmd === "exit 0" || cmd === "exit") Exit();
     else if (cmdWord(cmd, 0) === "echo") {
       Echo(cmd);
+      rl.prompt();
+    } else if (cmdWord(cmd, 0) === "type") {
+      const res = type(cmd);
+      if (!res && res !== false) {
+        console.log(misingPra());
+      } else {
+        console.log(
+          `${cmdWord(cmd, 1)}${res ? " is a shell builtin" : ": not found"}`
+        );
+      }
       rl.prompt();
     } else {
       console.log(`${cmd}: command not found`);
@@ -39,13 +67,3 @@ const startShell = () => {
   });
 };
 startShell();
-
-// rl.question("$ ", (answer) => {
-//     // console.log("You said: ", answer);
-//     // console.log(cmdWord(answer, 0));
-//     if (answer === "exit 0" || answer === "exit") {
-//       Exit();
-//     }
-//     if (cmdWord(answer, 0) === "echo") Echo(answer);
-//     shell();
-//   });
