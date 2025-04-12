@@ -24,15 +24,28 @@ const cmdWord = (input, num) => {
   return input.split(" ")[num];
 };
 
-const shell = () => {
-  rl.question("$ ", (answer) => {
-    // console.log("You said: ", answer);
-    // console.log(cmdWord(answer, 0));
-    if (answer === "exit 0" || answer === "exit") {
-      Exit();
+const startShell = () => {
+  rl.prompt();
+
+  rl.on("line", (cmd) => {
+    if (cmd === "exit 0" || cmd === "exit") Exit();
+    else if (cmdWord(cmd, 0) === "echo") {
+      Echo(cmd);
+      rl.prompt();
+    } else {
+      console.log(`${cmd}: command not found`);
+      rl.prompt();
     }
-    if (cmdWord(answer, 0) === "echo") Echo(answer);
-    shell();
   });
 };
-shell();
+startShell();
+
+// rl.question("$ ", (answer) => {
+//     // console.log("You said: ", answer);
+//     // console.log(cmdWord(answer, 0));
+//     if (answer === "exit 0" || answer === "exit") {
+//       Exit();
+//     }
+//     if (cmdWord(answer, 0) === "echo") Echo(answer);
+//     shell();
+//   });
