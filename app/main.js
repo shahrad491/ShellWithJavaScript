@@ -7,7 +7,10 @@ const rl = readline.createInterface({
   output: process.stdout,
 });
 
-rl.question("$ ", (answer) => {
-  console.log("You said: ", answer);
-  rl.close();
-});
+const shell = () => {
+  rl.question("$ ", (answer) => {
+    console.log("You said: ", answer);
+    shell();
+  });
+};
+shell();
