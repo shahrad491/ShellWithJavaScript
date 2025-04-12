@@ -1,0 +1,17 @@
+{
+  "name": "jsshell",
+  "version": "1.0.0",
+  "description": "This is a test for me to make a posix complient shell with js",
+  "license": "ISC",
+  "author": "shahrad491",
+  "type": "module",
+  "main": "app/main.js",
+  "scripts": {
+    "test": "nodemon app/main.js",
+    "start": "node app/main.js"
+  },
+  "devDependencies": {
+    "@types/node": "^22.14.1",
+    "nodemon": "^3.1.9"
+  }
+}
