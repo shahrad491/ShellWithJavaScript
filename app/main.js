@@ -7,9 +7,17 @@ const rl = readline.createInterface({
   output: process.stdout,
 });
 
+const Exit = () => {
+  rl.close();
+  process.exit(0);
+};
+
 const shell = () => {
   rl.question("$ ", (answer) => {
     console.log("You said: ", answer);
+    if (answer === "exit 0" || answer === "exit") {
+      Exit();
+    }
     shell();
   });
 };
